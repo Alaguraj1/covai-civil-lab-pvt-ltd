@@ -93,7 +93,7 @@ const ExpenseFileReport = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/expense_file_report/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_file_report/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -121,7 +121,7 @@ const ExpenseFileReport = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/expense_file_report/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_file_report/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

@@ -18,6 +18,7 @@ const InvoiceReport = () => {
     const [formData, setFormData] = useState<any>({
         completed: '',
         signature: '',
+        is_authorised_signatory: false,
     });
     const [selectedId, setSelectedId] = useState<any>(1);
 
@@ -36,14 +37,12 @@ const InvoiceReport = () => {
     useEffect(() => {
         getTestReport();
     }, []);
-    
-
 
     const getTestReport = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get(`https://files.covaiciviltechlab.com/edit_invoice_test_template/${id}/`, {
+            .get(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice_test_template/${id}/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -71,12 +70,14 @@ const InvoiceReport = () => {
                     setFormData({
                         signature: 1,
                         completed: res.data.invoice_test.completed,
+                        is_authorised_signatory: res.data.invoice_test?.is_authorised_signatory,
                     });
                 }
                 const filter = res.data.signatures.filter((element: any) => element.id == res.data.invoice_test.signature);
                 setFormData({
                     signature: filter[0].id,
                     completed: res.data.invoice_test.completed,
+                    is_authorised_signatory: res.data.invoice_test?.is_authorised_signatory,
                 });
                 setSelectedId(filter[0].id);
             })
@@ -89,7 +90,7 @@ const InvoiceReport = () => {
 
     // form submit
     const onFinish = (value: any) => {
-        if (selectedId == 1) {
+        if (selectedId == 1 && formData.is_authorised_signatory == false) {
             messageApi.open({
                 type: 'error',
                 content: 'Please Select Employee Name',
@@ -98,13 +99,14 @@ const InvoiceReport = () => {
             const body = {
                 report_template: editor,
                 completed: formData.completed,
-                signature: selectedId,
+                signature: formData.is_authorised_signatory == true ? '' : selectedId,
+                is_authorised_signatory: formData.is_authorised_signatory,
             };
 
             const Token = localStorage.getItem('token');
 
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_invoice_test_template/${id}/`, body, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice_test_template/${id}/`, body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -129,8 +131,7 @@ const InvoiceReport = () => {
         }
     };
 
-    const onFinishFailed = (errorInfo: any) => {
-    };
+    const onFinishFailed = (errorInfo: any) => {};
 
     const handleEditorChange = (data: any) => {
         setEditor(data);
@@ -164,6 +165,7 @@ const InvoiceReport = () => {
         });
     };
 
+    console.log('is_authorised_signatory', formData.is_authorised_signatory);
     return (
         <>
             <div className="panel" style={{ margin: '30px' }}>
@@ -205,18 +207,42 @@ const InvoiceReport = () => {
 
                         <div style={{ marginBottom: '20px' }}>
                             <label htmlFor="yourSelect">Employee Name</label>
-                            <select id="yourSelect" value={selectedId} onChange={(e) => setSelectedId(parseInt(e.target.value))} className="form-select flex-1">
+                            <select
+                                id="yourSelect"
+                                value={formData?.is_authorised_signatory ? 'authorized signature' : selectedId}
+                                onChange={(e) => {
+                                    const value = e.target.value;
+                                    setSelectedId(value);
+
+                                    if (value === 'authorized signature') {
+                                        // Set the is_authorised_signatory to true when "authorized signature" is selected
+                                        setFormData((prevData: any) => ({
+                                            ...prevData,
+                                            is_authorised_signatory: true,
+                                        }));
+                                    } else {
+                                        // Reset the is_authorised_signatory flag when an employee is selected
+                                        setFormData((prevData: any) => ({
+                                            ...prevData,
+                                            is_authorised_signatory: false,
+                                        }));
+                                    }
+                                }}
+                                className="form-select flex-1"
+                            >
                                 {invoiceReport?.signatures?.map((element: any) => (
                                     <option key={element.id} value={element.id}>
                                         {element.employee_name}
                                     </option>
                                 ))}
+                                <option value="authorized signature">Authorized Signature</option>
                             </select>
                         </div>
+
                         <Form.Item>
                             <div className="form-btn-main">
                                 <Space>
-                                    {invoiceReport?.invoice_test?.completed == 'Yes' && invoiceReport.invoice_test?.signature != '' ? (
+                                    {invoiceReport?.invoice_test?.completed == 'Yes' && (invoiceReport.invoice_test?.signature != '' || formData?.is_authorised_signatory == true) ? (
                                         <>
                                             <Button type="primary" onClick={() => handlePrint()}>
                                                 Print

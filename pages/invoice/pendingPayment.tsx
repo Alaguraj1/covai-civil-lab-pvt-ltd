@@ -17,7 +17,7 @@ const PendingPayment = () => {
 
     useEffect(() => {
         axios
-            .get('https://files.covaiciviltechlab.com/create_invoice/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice/', {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -156,7 +156,7 @@ const PendingPayment = () => {
 
 
         axios
-            .post('https://files.covaiciviltechlab.com/pending_payment/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/pending_payment/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -185,7 +185,7 @@ const PendingPayment = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/pending_payment/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/pending_payment/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

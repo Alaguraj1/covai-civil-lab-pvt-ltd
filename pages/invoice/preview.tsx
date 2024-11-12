@@ -9,7 +9,7 @@ const Preview = () => {
 
     useEffect(() => {
         axios
-            .get(`https://files.covaiciviltechlab.com/print_invoice/${id}/`, {
+            .get(`https://xvt7fwb7-8000.inc1.devtunnels.ms/print_invoice/${id}/`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },

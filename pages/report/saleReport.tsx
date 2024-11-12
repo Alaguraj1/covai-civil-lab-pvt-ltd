@@ -13,7 +13,7 @@ const SaleReport = () => {
 
     useEffect(() => {
         axios
-            .get('https://files.covaiciviltechlab.com/sale_report/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/sale_report/', {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -246,7 +246,7 @@ const SaleReport = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/sale_report/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/sale_report/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -273,7 +273,7 @@ const SaleReport = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/sale_report/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/sale_report/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

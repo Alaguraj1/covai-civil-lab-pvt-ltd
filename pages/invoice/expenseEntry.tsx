@@ -18,7 +18,7 @@ const ExpenseEntry = () => {
 
     useEffect(() => {
         axios
-            .get('https://files.covaiciviltechlab.com/create_expense_entry/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_expense_entry/', {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -154,7 +154,7 @@ const ExpenseEntry = () => {
     //     okText: "Yes",
     //     okType: "danger",
     //     onOk: () => {
-    //       axios.delete(`https://files.covaiciviltechlab.com/delete_expense_entry/${record.id}`, {
+    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_expense_entry/${record.id}`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -185,7 +185,7 @@ const ExpenseEntry = () => {
         // Check if editing or creating
         if (editRecord) {
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_expense_entry/${editRecord.id}/`, formattedData, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_expense_entry/${editRecord.id}/`, formattedData, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -202,7 +202,7 @@ const ExpenseEntry = () => {
                 });
         } else {
             axios
-                .post('https://files.covaiciviltechlab.com/create_expense_entry/', formattedData, {
+                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_expense_entry/', formattedData, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -317,7 +317,7 @@ const ExpenseEntry = () => {
 
 
         axios
-            .post('https://files.covaiciviltechlab.com/expense_entry_list/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_entry_list/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -346,7 +346,7 @@ const ExpenseEntry = () => {
 
 
         axios
-            .post('https://files.covaiciviltechlab.com/expense_entry_list/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_entry_list/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

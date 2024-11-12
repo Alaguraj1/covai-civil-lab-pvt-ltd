@@ -21,7 +21,7 @@ const InvoiceFileReport = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/expense_report/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_report/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -126,7 +126,7 @@ const InvoiceFileReport = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/invoice_file_report/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_file_report/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -154,7 +154,7 @@ const InvoiceFileReport = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/invoice_file_report/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_file_report/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

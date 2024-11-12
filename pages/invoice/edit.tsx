@@ -119,7 +119,7 @@ const Edit = () => {
 
     const getInvoiceTestData = () => {
         axios
-            .get(`https://files.covaiciviltechlab.com/edit_invoice/${id}/`, {
+            .get(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice/${id}/`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -227,7 +227,7 @@ const Edit = () => {
     const getInvoiceTestData2 = (isUpdate: String) => {
         console.log('✌️isUpdate --->', isUpdate);
         axios
-            .get(`https://files.covaiciviltechlab.com/edit_invoice/${id}/`, {
+            .get(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice/${id}/`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -443,7 +443,7 @@ const Edit = () => {
     useEffect(() => {
         const Token = localStorage.getItem('token');
         axios
-            .get('https://files.covaiciviltechlab.com/get_material_test/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/get_material_test/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -592,7 +592,7 @@ const Edit = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .put(`https://files.covaiciviltechlab.com/edit_invoice/${id}/`, body, {
+            .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice/${id}/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                     'Content-Type': 'application/json',
@@ -640,7 +640,7 @@ const Edit = () => {
         };
 
         axios
-            .put(`https://files.covaiciviltechlab.com/edit_invoice/${id}/`, body, {
+            .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice/${id}/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                     'Content-Type': 'application/json',
@@ -689,7 +689,7 @@ const Edit = () => {
         };
 
         axios
-            .put(`https://files.covaiciviltechlab.com/edit_invoice/${id}/`, body, {
+            .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice/${id}/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                     'Content-Type': 'application/json',
@@ -778,7 +778,7 @@ const Edit = () => {
         };
         invoiceFormSubmit1();
         axios
-            .post('https://files.covaiciviltechlab.com/create_invoice_test/', body?.tests, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice_test/', body?.tests, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -810,7 +810,7 @@ const Edit = () => {
             onOk: () => {
                 invoiceFormSubmit1();
                 axios
-                    .delete(`https://files.covaiciviltechlab.com/delete_invoice_test/${id}`, {
+                    .delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_invoice_test/${id}`, {
                         headers: {
                             Authorization: `Token ${Token}`,
                         },
@@ -832,7 +832,7 @@ const Edit = () => {
         const Token = localStorage.getItem('token');
         invoiceFormSubmit1();
         axios
-            .put(`https://files.covaiciviltechlab.com/edit_invoice_test/${editRecord.id}/`, values, {
+            .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice_test/${editRecord.id}/`, values, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -969,7 +969,7 @@ const Edit = () => {
             invoiceFormSubmit(e);
             setFormSubmitted(true);
             axios
-                .post(`https://files.covaiciviltechlab.com/add_payment/${id}/`, paymentFormData, {
+                .post(`https://xvt7fwb7-8000.inc1.devtunnels.ms/add_payment/${id}/`, paymentFormData, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },
@@ -1044,7 +1044,7 @@ const Edit = () => {
     //             setFormUpdated(true);
 
     //             axios
-    //                 .put(`https://files.covaiciviltechlab.com/edit_payment/${paymentEditRecord?.id}/`, paymentFormData, {
+    //                 .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_payment/${paymentEditRecord?.id}/`, paymentFormData, {
     //                     headers: {
     //                         Authorization: `Token ${Token}`,
     //                     },
@@ -1120,7 +1120,7 @@ const Edit = () => {
         setFormUpdated(true);
 
         axios
-            .put(`https://files.covaiciviltechlab.com/edit_payment/${paymentEditRecord?.id}/`, paymentFormData, {
+            .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_payment/${paymentEditRecord?.id}/`, paymentFormData, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -1161,7 +1161,7 @@ const Edit = () => {
             okType: 'danger',
             onOk: () => {
                 axios
-                    .delete(`https://files.covaiciviltechlab.com/delete_payment/${id}`, {
+                    .delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_payment/${id}`, {
                         headers: {
                             Authorization: `Token ${Token}`,
                         },

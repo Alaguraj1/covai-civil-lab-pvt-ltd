@@ -41,7 +41,7 @@ const Employee = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/employee_list/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/employee_list/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -165,7 +165,7 @@ const Employee = () => {
     //         okType: "danger",
     //         onOk: () => {
     //             console.log(record, "values")
-    //             axios.delete(`https://files.covaiciviltechlab.com/delete_employee/${record.id}/`, {
+    //             axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_employee/${record.id}/`, {
     //                 headers:
     //                 {
     //                     "Authorization": `Token ${Token}`
@@ -210,7 +210,7 @@ const Employee = () => {
         // Check if editing or creating
         if (editRecord) {
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_employee/${editRecord.id}/`, formattedData, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_employee/${editRecord.id}/`, formattedData, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },
@@ -229,7 +229,7 @@ const Employee = () => {
             setEditRecord(null);
         } else {
             axios
-                .post('https://files.covaiciviltechlab.com/create_employee/', formattedData, {
+                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_employee/', formattedData, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

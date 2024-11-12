@@ -35,7 +35,7 @@ const City = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/city_list/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/city_list/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -144,7 +144,7 @@ const City = () => {
     //     okText: "Yes",
     //     okType: "danger",
     //     onOk: () => {
-    //       axios.delete(`https://files.covaiciviltechlab.com/delete_tax/${record.id}`, {
+    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_tax/${record.id}`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -172,7 +172,7 @@ const City = () => {
 
         if (editRecord) {
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_city/${editRecord.id}/`, values, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_city/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -188,7 +188,7 @@ const City = () => {
                 });
         } else {
             axios
-                .post('https://files.covaiciviltechlab.com/create_city/', values, {
+                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_city/', values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

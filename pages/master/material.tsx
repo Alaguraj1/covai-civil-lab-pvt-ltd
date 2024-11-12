@@ -50,7 +50,7 @@ const Material = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/material_list/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/material_list/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -70,7 +70,7 @@ const Material = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/create_report_template/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_report_template/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -193,7 +193,7 @@ const Material = () => {
     //     okType: "danger",
     //     onOk: () => {
     //       console.log("values", record)
-    //       axios.delete(`https://files.covaiciviltechlab.com/delete_material/${record.id}`, {
+    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_material/${record.id}`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -231,7 +231,7 @@ const Material = () => {
 
         if (editRecord) {
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_material/${editRecord.id}/`, body, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_material/${editRecord.id}/`, body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -246,7 +246,7 @@ const Material = () => {
                 });
         } else {
             axios
-                .post('https://files.covaiciviltechlab.com/create_material/', body, {
+                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_material/', body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

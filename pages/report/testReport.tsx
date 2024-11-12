@@ -13,7 +13,7 @@ const TestReport = () => {
 
     useEffect(() => {
         axios
-            .get('https://files.covaiciviltechlab.com/test-list/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/test-list/', {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -88,7 +88,7 @@ const TestReport = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/test-list/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/test-list/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -118,7 +118,7 @@ const TestReport = () => {
         console.log('✌️body --->', body);
 
         axios
-            .post('https://files.covaiciviltechlab.com/test-list/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/test-list/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

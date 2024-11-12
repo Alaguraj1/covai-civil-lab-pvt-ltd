@@ -401,7 +401,7 @@ const Expense = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/dashboard/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/dashboard/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

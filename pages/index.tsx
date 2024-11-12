@@ -44,7 +44,7 @@ const Index = () => {
         e.preventDefault();
 
         axios
-            .post('https://files.covaiciviltechlab.com/login/', formData)
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/login/', formData)
             .then((res) => {
                 console.log(res.data);
                 localStorage.setItem('token', res?.data?.token);

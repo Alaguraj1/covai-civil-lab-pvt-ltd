@@ -34,7 +34,7 @@ const Customer = () => {
 
     const getCustomer = () => {
         axios
-            .get('https://files.covaiciviltechlab.com/customer_list/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/customer_list/', {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -53,7 +53,7 @@ const Customer = () => {
     const getDropDownValues = () => {
         const Token = localStorage.getItem('token');
         axios
-            .get('https://files.covaiciviltechlab.com/create_customer/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_customer/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -88,7 +88,7 @@ const Customer = () => {
         if (record) {
             const Token = localStorage.getItem('token');
             axios
-                .get('https://files.covaiciviltechlab.com/edit_customer/' + record.id + '/', {
+                .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_customer/' + record.id + '/', {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -180,7 +180,7 @@ const Customer = () => {
     //         okType: "danger",
     //         onOk: () => {
 
-    //             axios.delete(`https://files.covaiciviltechlab.com/delete_customer/${record.id}`, {
+    //             axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_customer/${record.id}`, {
     //                 headers: {
     //                     "Authorization": `Token ${localStorage.getItem("token")}`
     //                 }
@@ -212,7 +212,7 @@ const Customer = () => {
         // Check if editing or creating
         if (editRecord) {
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_customer/${editRecord.id}/`, values, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_customer/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },
@@ -230,7 +230,7 @@ const Customer = () => {
             setEditRecord(null);
         } else {
             axios
-                .post('https://files.covaiciviltechlab.com/create_customer/', values, {
+                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_customer/', values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },

@@ -27,7 +27,7 @@ const Expense = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/expense_list/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_list/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -143,7 +143,7 @@ const Expense = () => {
     //     okText: "Yes",
     //     okType: "danger",
     //     onOk: () => {
-    //       axios.delete(`https://files.covaiciviltechlab.com/delete_expense/${record.id}/`, {
+    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_expense/${record.id}/`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -168,7 +168,7 @@ const Expense = () => {
     const onFinish = (values: any) => {
         if (editRecord) {
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_expense/${editRecord.id}/`, values, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_expense/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },
@@ -184,7 +184,7 @@ const Expense = () => {
                 });
         } else {
             axios
-                .post('https://files.covaiciviltechlab.com/create_expense/', values, {
+                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_expense/', values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },

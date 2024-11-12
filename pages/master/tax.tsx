@@ -41,7 +41,7 @@ const Tax = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/tax_list/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/tax_list/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -153,7 +153,7 @@ const Tax = () => {
     //     okText: "Yes",
     //     okType: "danger",
     //     onOk: () => {
-    //       axios.delete(`https://files.covaiciviltechlab.com/delete_tax/${record.id}`, {
+    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_tax/${record.id}`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -183,7 +183,7 @@ const Tax = () => {
 
         if (editRecord) {
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_tax/${editRecord.id}/`, values, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_tax/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -199,7 +199,7 @@ const Tax = () => {
                 });
         } else {
             axios
-                .post('https://files.covaiciviltechlab.com/create_tax/', values, {
+                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_tax/', values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

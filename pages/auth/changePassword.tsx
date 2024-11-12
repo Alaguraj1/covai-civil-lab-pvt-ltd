@@ -47,7 +47,7 @@ const ChangePassword = () => {
 
         const Token = localStorage.getItem('token');
         axios
-            .post('https://files.covaiciviltechlab.com/change-password/', formData, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/change-password/', formData, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

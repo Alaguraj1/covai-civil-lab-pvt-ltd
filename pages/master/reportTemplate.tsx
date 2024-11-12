@@ -25,7 +25,7 @@ const Report = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/create_report_template/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_report_template/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -45,7 +45,7 @@ const Report = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://files.covaiciviltechlab.com/report_template_list/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/report_template_list/', {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -141,7 +141,7 @@ const Report = () => {
             okType: 'danger',
             onOk: () => {
                 axios
-                    .delete(`https://files.covaiciviltechlab.com/delete_report_template/${record?.id}/`, {
+                    .delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_report_template/${record?.id}/`, {
                         headers: {
                             Authorization: `Token ${localStorage.getItem('token')}`,
                         },
@@ -176,7 +176,7 @@ const Report = () => {
 
         if (editRecord) {
             axios
-                .put(`https://files.covaiciviltechlab.com/edit_report_template/${editRecord.id}/`, body, {
+                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_report_template/${editRecord.id}/`, body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -188,7 +188,7 @@ const Report = () => {
                 .catch((error) => {});
         } else {
             axios
-                .post('https://files.covaiciviltechlab.com/create_report_template/', body, {
+                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_report_template/', body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

@@ -23,7 +23,7 @@ const Invoice = () => {
 
     useEffect(() => {
         axios
-            .get('https://files.covaiciviltechlab.com/create_invoice/', {
+            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice/', {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -40,7 +40,7 @@ const Invoice = () => {
 
     // const getInvoice = () => {
     //     axios
-    //         .get('https://files.covaiciviltechlab.com/invoice_list/', {
+    //         .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_list/', {
     //             headers: {
     //                 Authorization: `Token ${localStorage.getItem('token')}`,
     //             },
@@ -182,7 +182,7 @@ const Invoice = () => {
     //         okType: "danger",
     //         onOk: () => {
     //             console.log(record, "values")
-    //             axios.delete(`https://files.covaiciviltechlab.com/delete_invoice/${record.id}`, {
+    //             axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_invoice/${record.id}`, {
     //                 headers: {
     //                     "Authorization": `Token ${localStorage.getItem("token")}`
     //                 }
@@ -232,7 +232,7 @@ const Invoice = () => {
         };
 
         axios
-            .post('https://files.covaiciviltechlab.com/create_invoice/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -287,7 +287,7 @@ const Invoice = () => {
         console.log('✌️body --->', body);
 
         axios
-            .post('https://files.covaiciviltechlab.com/invoice_list/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_list/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -319,7 +319,7 @@ const Invoice = () => {
         console.log('✌️body --->', body);
 
         axios
-            .post('https://files.covaiciviltechlab.com/invoice_list/', body, {
+            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_list/', body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
