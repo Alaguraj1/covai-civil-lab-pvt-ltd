@@ -13,27 +13,21 @@ import IconLockDots from '@/components/Icon/IconLockDots';
 import IconInstagram from '@/components/Icon/IconInstagram';
 import IconFacebookCircle from '@/components/Icon/IconFacebookCircle';
 import IconTwitter from '@/components/Icon/IconTwitter';
-import axios from 'axios';
-import { message } from 'antd';
+import Models from '@/imports/models.import';
+import { Failure, Success, useSetState } from '@/utils/function.util';
+import IconLoader from '@/components/Icon/IconLoader';
 
 const Index = () => {
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(setPageTitle('Login Cover'));
-    // });
     const router = useRouter();
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     if (!token) {
-    //         // You can also pass a query parameter to the login page to handle redirection after login
-    //         router.push('/');
-    //     }
-    // }, [])
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
     });
-    const [messageApi, contextHolder] = message.useMessage();
+
+    const [state, setState] = useSetState({
+        loading: false,
+    });
 
     useEffect(() => {
         const Token = localStorage.getItem('token');
@@ -42,44 +36,23 @@ const Index = () => {
 
     const submitForm = async (e: any) => {
         e.preventDefault();
+        try {
+            setState({ loading: true });
+            const res: any = await Models.auth.login(formData);
+            console.log('res: ', res);
+            localStorage.setItem('token', res?.data?.token);
+            localStorage.setItem('admin', res?.data?.is_admin);
+            localStorage.setItem('user', res?.data?.name);
+            router.replace('/dashboard');
+            Success('Login Successfull');
+            setState({ loading: false });
+        } catch (error) {
+            console.log('error: ', error);
+            setState({ loading: false });
 
-        axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/login/', formData)
-            .then((res) => {
-                console.log(res.data);
-                localStorage.setItem('token', res?.data?.token);
-                localStorage.setItem('admin', res?.data?.is_admin);
-                localStorage.setItem('user', res?.data?.name);
-                router.push('/dashboard');
-                messageApi.open({
-                    type: 'success',
-                    content: 'Login Successfull',
-                });
-            })
-            .catch((error: any) => {
-                console.log(error.code);
-                messageApi.open({
-                    type: 'error',
-                    content: 'The username or password you entered is incorrect.',
-                });
-            });
+            Failure('The username or password you entered is incorrect.');
+        }
     };
-
-    // const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl' ? true : false;
-
-    // const themeConfig = useSelector((state: IRootState) => state.themeConfig);
-    // const setLocale = (flag: string) => {
-    //     setFlag(flag);
-    //     if (flag.toLowerCase() === 'ae') {
-    //         dispatch(toggleRTL('rtl'));
-    //     } else {
-    //         dispatch(toggleRTL('ltr'));
-    //     }
-    // };
-    // const [flag, setFlag] = useState('');
-    // useEffect(() => {
-    //     setLocale(localStorage.getItem('i18nextLng') || themeConfig.locale);
-    // }, []);
 
     const inputChange = (e: any) => {
         setFormData({
@@ -111,55 +84,13 @@ const Index = () => {
                         </div>
                     </div>
                     <div className="relative flex w-full flex-col items-center justify-center gap-6 px-4 pb-16 pt-6 sm:px-6 lg:max-w-[667px]">
-                        <div className="flex w-full max-w-[440px] items-center gap-2 lg:absolute lg:end-6 lg:top-6 lg:max-w-full">
-                            {/* <div className="dropdown ms-auto w-max">
-                                {flag && (
-                                    <Dropdown
-                                        offset={[0, 8]}
-                                        placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
-                                        btnClassName="flex items-center gap-2.5 rounded-lg border border-white-dark/30 bg-white px-2 py-1.5 text-white-dark hover:border-primary hover:text-primary dark:bg-black"
-                                        button={
-                                            <>
-                                                <div>
-                                                    <img src={`/assets/images/flags/${flag.toUpperCase()}.svg`} alt="image" className="h-5 w-5 rounded-full object-cover" />
-                                                </div>
-                                                <div className="text-base font-bold uppercase">{flag}</div>
-                                                <span className="shrink-0">
-                                                    <IconCaretDown />
-                                                </span>
-                                            </>
-                                        }
-                                    >
-                                        <ul className="grid w-[280px] grid-cols-2 gap-2 !px-2 font-semibold text-dark dark:text-white-dark dark:text-white-light/90">
-                                            {themeConfig.languageList.map((item: any) => {
-                                                return (
-                                                    <li key={item.code}>
-                                                        <button
-                                                            type="button"
-                                                            className={`flex w-full rounded-lg hover:text-primary ${i18n.language === item.code ? 'bg-primary/10 text-primary' : ''}`}
-                                                            onClick={() => {
-                                                                dispatch(toggleLocale(item.code));
-                                                                i18n.changeLanguage(item.code);
-                                                                setLocale(item.code);
-                                                            }}
-                                                        >
-                                                            <img src={`/assets/images/flags/${item.code.toUpperCase()}.svg`} alt="flag" className="h-5 w-5 rounded-full object-cover" />
-                                                            <span className="ltr:ml-3 rtl:mr-3">{item.name}</span>
-                                                        </button>
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    </Dropdown>
-                                )}
-                            </div> */}
-                        </div>
+                        <div className="flex w-full max-w-[440px] items-center gap-2 lg:absolute lg:end-6 lg:top-6 lg:max-w-full"></div>
                         <div className="w-full max-w-[440px] lg:mt-16">
                             <div className="mb-10">
                                 <h1 className="text-brown text-3xl font-extrabold uppercase !leading-snug md:text-4xl">Sign in</h1>
                                 <p className="text-base font-bold leading-normal text-white-dark">Enter your email and password to Sign In</p>
                             </div>
-                            {contextHolder}
+                            {/* {contextHolder} */}
                             <form className="space-y-5 dark:text-white" onSubmit={submitForm}>
                                 <div>
                                     <label htmlFor="Email">Email</label>
@@ -197,72 +128,13 @@ const Index = () => {
                                         </span>
                                     </div>
                                 </div>
-                                {/* <div>
-                                    <label className="flex cursor-pointer items-center">
-                                        <input type="checkbox" className="form-checkbox bg-white dark:bg-black" />
-                                        <span className="text-white-dark">Subscribe to weekly newsletter</span>
-                                    </label>
-                                </div> */}
+
                                 <button type="submit" className="btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]">
-                                    Sign in
+                                    {state.loading ? <IconLoader className=" h-4 w-4 animate-spin" /> : 'Sign in'}
                                 </button>
                             </form>
-
-                            {/* <div className="relative my-7 text-center md:mb-9">
-                                <span className="absolute inset-x-0 top-1/2 h-px w-full -translate-y-1/2 bg-white-light dark:bg-white-dark"></span>
-                                <span className="relative bg-white px-2 font-bold uppercase text-white-dark dark:bg-dark dark:text-white-light">or</span>
-                            </div> */}
-                            {/* <div className="mb-10 md:mb-[60px]">
-                                <ul className="flex justify-center gap-3.5 text-white">
-                                    <li>
-                                        <Link
-                                            href="#"
-                                            className="inline-flex h-8 w-8 items-center justify-center rounded-full p-0 transition hover:scale-110"
-                                            style={{ background: 'linear-gradient(135deg, rgba(239, 18, 98, 1) 0%, rgba(67, 97, 238, 1) 100%)' }}
-                                        >
-                                            <IconInstagram />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="#"
-                                            className="inline-flex h-8 w-8 items-center justify-center rounded-full p-0 transition hover:scale-110"
-                                            style={{ background: 'linear-gradient(135deg, rgba(239, 18, 98, 1) 0%, rgba(67, 97, 238, 1) 100%)' }}
-                                        >
-                                            <IconFacebookCircle />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="#"
-                                            className="inline-flex h-8 w-8 items-center justify-center rounded-full p-0 transition hover:scale-110"
-                                            style={{ background: 'linear-gradient(135deg, rgba(239, 18, 98, 1) 0%, rgba(67, 97, 238, 1) 100%)' }}
-                                        >
-                                            <IconTwitter fill={true} />
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            href="#"
-                                            className="inline-flex h-8 w-8 items-center justify-center rounded-full p-0 transition hover:scale-110"
-                                            style={{ background: 'linear-gradient(135deg, rgba(239, 18, 98, 1) 0%, rgba(67, 97, 238, 1) 100%)' }}
-                                        >
-                                            <IconGoogle />
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div> */}
-                            {/* <div className="text-center dark:text-white">
-                                Don't have an account ?&nbsp;
-                                <Link href="/auth/register" className="uppercase text-primary underline transition hover:text-black dark:hover:text-white">
-                                    SIGN UP
-                                </Link>
-                            </div> */}
                         </div>
-                        <p className="absolute bottom-6 w-full text-center dark:text-white">
-                            ©{/* {new Date().getFullYear()} */}
-                            2024.Covai Civil Lab Private Limited. All Rights Reserved.
-                        </p>
+                        <p className="absolute bottom-6 w-full text-center dark:text-white">© 2024.Covai Civil Lab Private Limited. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
