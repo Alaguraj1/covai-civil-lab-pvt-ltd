@@ -39,7 +39,6 @@ const Index = () => {
         try {
             setState({ loading: true });
             const res: any = await Models.auth.login(formData);
-            console.log('res: ', res);
             localStorage.setItem('token', res?.data?.token);
             localStorage.setItem('admin', res?.data?.is_admin);
             localStorage.setItem('user', res?.data?.name);
