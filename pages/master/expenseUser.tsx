@@ -4,6 +4,7 @@ import { Button, Drawer } from 'antd';
 import {  Form, Input } from 'antd';
 import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 import axios from 'axios';
+import { baseUrl } from '@/utils/function.util';
 
 const ExpenseUser = () => {
 
@@ -22,7 +23,7 @@ const ExpenseUser = () => {
     }, [])
 
     const getExpenseUser = (() => {
-        axios.get("https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_user_list/", {
+        axios.get(`${baseUrl}/expense_user_list/`, {
             headers: {
                 "Authorization": `Token ${localStorage.getItem("token")}`
             }
@@ -132,7 +133,7 @@ const ExpenseUser = () => {
             okType: "danger",
             onOk: () => {
                 console.log(record, "values")
-                axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_expense_user/${record.id}/`, {
+                axios.delete(`${baseUrl}/delete_expense_user/${record.id}/`, {
                     headers: {
                         "Authorization": `Token ${Token}`
                     }
@@ -161,7 +162,7 @@ const ExpenseUser = () => {
     const onFinish = (values: any) => {
 
         if (editRecord) {
-            axios.put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_expense_user/${editRecord.id}/`, values, {
+            axios.put(`${baseUrl}/edit_expense_user/${editRecord.id}/`, values, {
                 headers: {
                     "Authorization": `Token ${localStorage.getItem("token")}`
                 }
@@ -173,7 +174,7 @@ const ExpenseUser = () => {
                 console.log(err)
             })
         } else {
-            axios.post(`https://xvt7fwb7-8000.inc1.devtunnels.ms/create_expense_user/`, values, {
+            axios.post(`${baseUrl}/create_expense_user/`, values, {
                 headers: {
                     "Authorization": `Token ${localStorage.getItem("token")}`
                 }

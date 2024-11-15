@@ -6,6 +6,7 @@ import ExcelJS from 'exceljs';
 import * as FileSaver from 'file-saver';
 import dayjs from 'dayjs';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const ExpenseReport = () => {
     const [form] = Form.useForm();
@@ -21,7 +22,7 @@ const ExpenseReport = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_report/', {
+            .get(`${baseUrl}/expense_report/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -106,7 +107,7 @@ const ExpenseReport = () => {
         };
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_report/', body, {
+            .post(`${baseUrl}/expense_report/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -133,7 +134,7 @@ const ExpenseReport = () => {
         };
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_report/', body, {
+            .post(`${baseUrl}/expense_report/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

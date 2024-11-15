@@ -130,7 +130,6 @@ const Header = () => {
         setNotifications(notifications.filter((user) => user.id !== value));
     };
 
-
     const { t, i18n } = useTranslation();
 
     const { confirm } = Modal;
@@ -422,7 +421,7 @@ const Header = () => {
                                 </div>
                             </button>
                             <ul className="sub-menu">
-                            <li>
+                                <li>
                                     <Link href="/report/saleReport">{t('Sales Report')}</Link>
                                 </li>
                                 <li>
@@ -437,7 +436,6 @@ const Header = () => {
                                 <li>
                                     <Link href="/report/testReport">{t('Test Report')}</Link>
                                 </li>
-                               
                             </ul>
                         </li>
                     ) : (
@@ -487,6 +485,24 @@ const Header = () => {
                             </li>
                         </ul>
                     </li>
+                    {admin === 'true' && (
+                        <li className="menu nav-item relative">
+                            <button type="button" className="nav-link">
+                                <div className="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="shrink-0">
+                                        <path
+                                            d="M3 4.5C3 3.67157 3.67157 3 4.5 3H19.5C20.3284 3 21 3.67157 21 4.5V19.5C21 20.3284 20.3284 21 19.5 21H4.5C3.67157 21 3 20.3284 3 19.5V4.5ZM4 5V19H20V5H4ZM6 7H18V9H6V7ZM6 11H18V13H6V11ZM6 15H18V17H6V15Z"
+                                            fill="currentColor"
+                                        />
+                                    </svg>
+                                    <span className="px-1">
+                                        {' '}
+                                        <Link href="/logs">{t('Logs')} </Link>
+                                    </span>
+                                </div>
+                            </button>
+                        </li>
+                    )}
                 </ul>
             </div>
         </header>

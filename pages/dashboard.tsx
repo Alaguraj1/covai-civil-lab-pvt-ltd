@@ -11,6 +11,7 @@ const ReactApexChart = dynamic(
   );
 import { useRouter } from 'next/router';
 import dayjs from 'dayjs';
+import { baseUrl } from '@/utils/function.util';
 
 const Expense = () => {
     const router = useRouter();
@@ -401,7 +402,7 @@ const Expense = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/dashboard/', {
+            .get(`${baseUrl}/dashboard/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

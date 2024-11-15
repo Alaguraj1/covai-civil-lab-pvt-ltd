@@ -4,6 +4,7 @@ import { EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import 'react-quill/dist/quill.snow.css';
 import dynamic from 'next/dynamic';
+import { baseUrl } from '@/utils/function.util';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -25,7 +26,7 @@ const Report = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_report_template/', {
+            .get(`${baseUrl}/create_report_template/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -45,7 +46,7 @@ const Report = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/report_template_list/', {
+            .get(`${baseUrl}/report_template_list/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -141,7 +142,7 @@ const Report = () => {
             okType: 'danger',
             onOk: () => {
                 axios
-                    .delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_report_template/${record?.id}/`, {
+                    .delete(`${baseUrl}/delete_report_template/${record?.id}/`, {
                         headers: {
                             Authorization: `Token ${localStorage.getItem('token')}`,
                         },
@@ -176,7 +177,7 @@ const Report = () => {
 
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_report_template/${editRecord.id}/`, body, {
+                .put(`${baseUrl}/edit_report_template/${editRecord.id}/`, body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -188,7 +189,7 @@ const Report = () => {
                 .catch((error) => {});
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_report_template/', body, {
+                .post(`${baseUrl}/create_report_template/`, body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

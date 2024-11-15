@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const Print = () => {
     const router = useRouter();
@@ -13,7 +14,7 @@ const [finalHtml, setFinalHtml] = useState<any>()
         if (id) {
             const Token = localStorage.getItem("token")
 
-            axios.get(`https://xvt7fwb7-8000.inc1.devtunnels.ms/preview_invoice_test_template/${id}/`, {
+            axios.get(`${baseUrl}/preview_invoice_test_template/${id}/`, {
                
             }).then((res) => {
                 setInvoiceReport(res.data);

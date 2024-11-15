@@ -6,6 +6,7 @@ import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const Employee = () => {
     const { Search } = Input;
@@ -41,7 +42,7 @@ const Employee = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/employee_list/', {
+            .get(`${baseUrl}/employee_list/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -165,7 +166,7 @@ const Employee = () => {
     //         okType: "danger",
     //         onOk: () => {
     //             console.log(record, "values")
-    //             axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_employee/${record.id}/`, {
+    //             axios.delete(`${baseUrl}/delete_employee/${record.id}/`, {
     //                 headers:
     //                 {
     //                     "Authorization": `Token ${Token}`
@@ -210,7 +211,7 @@ const Employee = () => {
         // Check if editing or creating
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_employee/${editRecord.id}/`, formattedData, {
+                .put(`${baseUrl}/edit_employee/${editRecord.id}/`, formattedData, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },
@@ -229,7 +230,7 @@ const Employee = () => {
             setEditRecord(null);
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_employee/', formattedData, {
+                .post(`${baseUrl}/create_employee/`, formattedData, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

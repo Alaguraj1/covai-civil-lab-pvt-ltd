@@ -39,9 +39,9 @@ const Index = () => {
         try {
             setState({ loading: true });
             const res: any = await Models.auth.login(formData);
-            localStorage.setItem('token', res?.data?.token);
-            localStorage.setItem('admin', res?.data?.is_admin);
-            localStorage.setItem('user', res?.data?.name);
+            localStorage.setItem('token', res?.token);
+            localStorage.setItem('admin', res?.is_admin);
+            localStorage.setItem('user', res?.name);
             router.replace('/dashboard');
             Success('Login Successfull');
             setState({ loading: false });

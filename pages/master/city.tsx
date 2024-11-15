@@ -5,6 +5,7 @@ import { Form, Input } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const City = () => {
     const { Search } = Input;
@@ -36,7 +37,7 @@ const City = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/city_list/', {
+            .get(`${baseUrl}/city_list/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -145,7 +146,7 @@ const City = () => {
     //     okText: "Yes",
     //     okType: "danger",
     //     onOk: () => {
-    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_tax/${record.id}`, {
+    //       axios.delete(`${baseUrl}/delete_tax/${record.id}`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -173,7 +174,7 @@ const City = () => {
 
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_city/${editRecord.id}/`, values, {
+                .put(`${baseUrl}/edit_city/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -189,7 +190,7 @@ const City = () => {
                 });
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_city/', values, {
+                .post(`${baseUrl}/create_city/`, values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

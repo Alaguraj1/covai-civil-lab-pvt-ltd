@@ -7,6 +7,7 @@ import * as FileSaver from 'file-saver';
 import ExcelJS from 'exceljs';
 import router from 'next/router';
 import dayjs from 'dayjs';
+import { baseUrl } from '@/utils/function.util';
 
 const PendingPayment = () => {
     const { Search } = Input;
@@ -17,7 +18,7 @@ const PendingPayment = () => {
 
     useEffect(() => {
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice/', {
+            .get(`${baseUrl}/create_invoice/`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -156,7 +157,7 @@ const PendingPayment = () => {
 
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/pending_payment/', body, {
+            .post(`${baseUrl}/pending_payment/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -185,7 +186,7 @@ const PendingPayment = () => {
         };
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/pending_payment/', body, {
+            .post(`${baseUrl}/pending_payment/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

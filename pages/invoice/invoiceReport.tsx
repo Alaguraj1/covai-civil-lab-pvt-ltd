@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { Space, Form, Button, message } from 'antd';
 import 'react-quill/dist/quill.snow.css';
+import { baseUrl } from '@/utils/function.util';
 
 const InvoiceReport = () => {
     const editorRef: any = useRef();
@@ -42,7 +43,7 @@ const InvoiceReport = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice_test_template/${id}/`, {
+            .get(`${baseUrl}/edit_invoice_test_template/${id}/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -106,7 +107,7 @@ const InvoiceReport = () => {
             const Token = localStorage.getItem('token');
 
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice_test_template/${id}/`, body, {
+                .put(`${baseUrl}/edit_invoice_test_template/${id}/`, body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

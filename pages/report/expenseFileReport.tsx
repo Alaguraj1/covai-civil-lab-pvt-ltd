@@ -6,6 +6,7 @@ import ExcelJS from 'exceljs';
 import * as FileSaver from 'file-saver';
 import dayjs from 'dayjs';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const ExpenseFileReport = () => {
     const [form] = Form.useForm();
@@ -93,7 +94,7 @@ const ExpenseFileReport = () => {
         };
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_file_report/', body, {
+            .post(`${baseUrl}/expense_file_report/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -121,7 +122,7 @@ const ExpenseFileReport = () => {
         };
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_file_report/', body, {
+            .post(`${baseUrl}/expense_file_report/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

@@ -5,6 +5,7 @@ import { Form, Input, Radio } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const Tax = () => {
     const [open, setOpen] = useState(false);
@@ -41,7 +42,7 @@ const Tax = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/tax_list/', {
+            .get(`${baseUrl}/tax_list/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -153,7 +154,7 @@ const Tax = () => {
     //     okText: "Yes",
     //     okType: "danger",
     //     onOk: () => {
-    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_tax/${record.id}`, {
+    //       axios.delete(`${baseUrl}/delete_tax/${record.id}`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -183,7 +184,7 @@ const Tax = () => {
 
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_tax/${editRecord.id}/`, values, {
+                .put(`${baseUrl}/edit_tax/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -199,7 +200,7 @@ const Tax = () => {
                 });
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_tax/', values, {
+                .post(`${baseUrl}/create_tax/`, values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

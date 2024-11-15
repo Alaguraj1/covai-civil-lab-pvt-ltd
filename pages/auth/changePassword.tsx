@@ -5,6 +5,7 @@ import Link from 'next/link';
 import IconLockDots from '@/components/Icon/IconLockDots';
 import axios from 'axios';
 import { message } from 'antd';
+import { baseUrl } from '@/utils/function.util';
 
 const ChangePassword = () => {
     const router = useRouter();
@@ -47,7 +48,7 @@ const ChangePassword = () => {
 
         const Token = localStorage.getItem('token');
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/change-password/', formData, {
+            .post(`${baseUrl}/change-password/`, formData, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

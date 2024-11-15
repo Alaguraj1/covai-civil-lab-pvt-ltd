@@ -7,6 +7,7 @@ import axios from 'axios';
 import type { UploadProps } from 'antd';
 import router from 'next/router';
 import dayjs from 'dayjs';
+import { baseUrl } from '@/utils/function.util';
 
 const InvoiceFileUpload = () => {
     const { Search } = Input;
@@ -31,7 +32,7 @@ const InvoiceFileUpload = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice_file_upload/', {
+            .get(`${baseUrl}/create_invoice_file_upload/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -65,7 +66,7 @@ const InvoiceFileUpload = () => {
     //     const Token = localStorage.getItem('token');
 
     //     axios
-    //         .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_file_upload_list/', {
+    //         .get('${baseUrl}/invoice_file_upload_list/', {
     //             headers: {
     //                 Authorization: `Token ${Token}`,
     //             },
@@ -242,7 +243,7 @@ const InvoiceFileUpload = () => {
 
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice_file_upload/${editRecord.id}/`, formData, {
+                .put(`${baseUrl}/edit_invoice_file_upload/${editRecord.id}/`, formData, {
                     headers: {
                         Authorization: `Token ${Token}`,
                         'Content-Type': 'multipart/form-data', // Set content type for file upload
@@ -261,7 +262,7 @@ const InvoiceFileUpload = () => {
                 });
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice_file_upload/', formData, {
+                .post(`${baseUrl}/create_invoice_file_upload/`, formData, {
                     headers: {
                         Authorization: `Token ${Token}`,
                         'Content-Type': 'multipart/form-data', // Set content type for file upload
@@ -402,7 +403,7 @@ const InvoiceFileUpload = () => {
         console.log('✌️body --->', body);
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_file_upload_list/', body, {
+            .post(`${baseUrl}/invoice_file_upload_list/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -433,7 +434,7 @@ const InvoiceFileUpload = () => {
         console.log('✌️body --->', body);
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_file_upload_list/', body, {
+            .post(`${baseUrl}/invoice_file_upload_list/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

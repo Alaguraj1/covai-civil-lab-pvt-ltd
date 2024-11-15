@@ -5,6 +5,7 @@ import { Form, Input, Select } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const Customer = () => {
     const { Search } = Input;
@@ -34,7 +35,7 @@ const Customer = () => {
 
     const getCustomer = () => {
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/customer_list/', {
+            .get(`${baseUrl}/customer_list/`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -53,7 +54,7 @@ const Customer = () => {
     const getDropDownValues = () => {
         const Token = localStorage.getItem('token');
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_customer/', {
+            .get(`${baseUrl}/create_customer/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -88,7 +89,7 @@ const Customer = () => {
         if (record) {
             const Token = localStorage.getItem('token');
             axios
-                .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_customer/' + record.id + '/', {
+                .get(`${baseUrl}/edit_customer/${record.id}/`, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -180,7 +181,7 @@ const Customer = () => {
     //         okType: "danger",
     //         onOk: () => {
 
-    //             axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_customer/${record.id}`, {
+    //             axios.delete(`${baseUrl}/delete_customer/${record.id}`, {
     //                 headers: {
     //                     "Authorization": `Token ${localStorage.getItem("token")}`
     //                 }
@@ -212,7 +213,7 @@ const Customer = () => {
         // Check if editing or creating
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_customer/${editRecord.id}/`, values, {
+                .put(`${baseUrl}/edit_customer/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },
@@ -230,7 +231,7 @@ const Customer = () => {
             setEditRecord(null);
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_customer/', values, {
+                .post(`${baseUrl}/create_customer/`, values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },

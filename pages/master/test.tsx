@@ -5,6 +5,7 @@ import { Form, Input, InputNumber, Select } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const Test = () => {
     const { Search } = Input;
@@ -36,7 +37,7 @@ const Test = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_test/', {
+            .get(`${baseUrl}/create_test/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -55,7 +56,7 @@ const Test = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/test_list/', {
+            .get(`${baseUrl}/test_list/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -189,7 +190,7 @@ const Test = () => {
     //         okText: "Yes",
     //         okType: "danger",
     //         onOk: () => {
-    //             axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_test/${record.id}/`,
+    //             axios.delete(`${baseUrl}/delete_test/${record.id}/`,
     //                 {
     //                     headers: {
     //                         "Authorization": `Token ${Token}`
@@ -220,7 +221,7 @@ const Test = () => {
 
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_test/${editRecord.id}/`, values, {
+                .put(`${baseUrl}/edit_test/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -236,7 +237,7 @@ const Test = () => {
                 });
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_test/', values, {
+                .post(`${baseUrl}/create_test/`, values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },

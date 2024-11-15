@@ -6,6 +6,7 @@ import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import moment from 'moment';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const Expense = () => {
     const { Search } = Input;
@@ -27,7 +28,7 @@ const Expense = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/expense_list/', {
+            .get(`${baseUrl}/expense_list/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -143,7 +144,7 @@ const Expense = () => {
     //     okText: "Yes",
     //     okType: "danger",
     //     onOk: () => {
-    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_expense/${record.id}/`, {
+    //       axios.delete(`${baseUrl}/delete_expense/${record.id}/`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -168,7 +169,7 @@ const Expense = () => {
     const onFinish = (values: any) => {
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_expense/${editRecord.id}/`, values, {
+                .put(`${baseUrl}/edit_expense/${editRecord.id}/`, values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },
@@ -184,7 +185,7 @@ const Expense = () => {
                 });
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_expense/', values, {
+                .post(`${baseUrl}/create_expense/`, values, {
                     headers: {
                         Authorization: `Token ${localStorage.getItem('token')}`,
                     },

@@ -6,6 +6,7 @@ import { EditOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import router from 'next/router';
 import dayjs from 'dayjs';
+import { baseUrl } from '@/utils/function.util';
 
 const Invoice = () => {
     const { Search } = Input;
@@ -23,7 +24,7 @@ const Invoice = () => {
 
     useEffect(() => {
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice/', {
+            .get(`${baseUrl}/create_invoice/`, {
                 headers: {
                     Authorization: `Token ${localStorage.getItem('token')}`,
                 },
@@ -40,7 +41,7 @@ const Invoice = () => {
 
     // const getInvoice = () => {
     //     axios
-    //         .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_list/', {
+    //         .get('${baseUrl}/invoice_list/', {
     //             headers: {
     //                 Authorization: `Token ${localStorage.getItem('token')}`,
     //             },
@@ -182,7 +183,7 @@ const Invoice = () => {
     //         okType: "danger",
     //         onOk: () => {
     //             console.log(record, "values")
-    //             axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_invoice/${record.id}`, {
+    //             axios.delete(`${baseUrl}/delete_invoice/${record.id}`, {
     //                 headers: {
     //                     "Authorization": `Token ${localStorage.getItem("token")}`
     //                 }
@@ -232,7 +233,7 @@ const Invoice = () => {
         };
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_invoice/', body, {
+            .post(`${baseUrl}/create_invoice/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -287,7 +288,7 @@ const Invoice = () => {
         console.log('✌️body --->', body);
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_list/', body, {
+            .post(`${baseUrl}/invoice_list/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -319,7 +320,7 @@ const Invoice = () => {
         console.log('✌️body --->', body);
 
         axios
-            .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/invoice_list/', body, {
+            .post(`${baseUrl}/invoice_list/`, body, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },

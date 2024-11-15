@@ -7,6 +7,7 @@ import axios from 'axios';
 import 'react-quill/dist/quill.snow.css';
 import moment from 'moment';
 import router from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const Material = () => {
     const editorRef: any = useRef();
@@ -50,7 +51,7 @@ const Material = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/material_list/', {
+            .get(`${baseUrl}/material_list/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -70,7 +71,7 @@ const Material = () => {
         const Token = localStorage.getItem('token');
 
         axios
-            .get('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_report_template/', {
+            .get(`${baseUrl}/create_report_template/`, {
                 headers: {
                     Authorization: `Token ${Token}`,
                 },
@@ -193,7 +194,7 @@ const Material = () => {
     //     okType: "danger",
     //     onOk: () => {
     //       console.log("values", record)
-    //       axios.delete(`https://xvt7fwb7-8000.inc1.devtunnels.ms/delete_material/${record.id}`, {
+    //       axios.delete(`${baseUrl}/delete_material/${record.id}`, {
     //         headers: {
     //           "Authorization": `Token ${Token}`
     //         }
@@ -231,7 +232,7 @@ const Material = () => {
 
         if (editRecord) {
             axios
-                .put(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_material/${editRecord.id}/`, body, {
+                .put(`${baseUrl}/edit_material/${editRecord.id}/`, body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
@@ -246,7 +247,7 @@ const Material = () => {
                 });
         } else {
             axios
-                .post('https://xvt7fwb7-8000.inc1.devtunnels.ms/create_material/', body, {
+                .post(`${baseUrl}/create_material/`, body, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },

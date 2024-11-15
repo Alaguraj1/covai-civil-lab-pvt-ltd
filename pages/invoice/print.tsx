@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { baseUrl } from '@/utils/function.util';
 
 const Print = () => {
     const router = useRouter();
@@ -90,7 +91,7 @@ const Print = () => {
             const Token = localStorage.getItem('token');
 
             axios
-                .get(`https://xvt7fwb7-8000.inc1.devtunnels.ms/edit_invoice_test_template/${id}/`, {
+                .get(`${baseUrl}/edit_invoice_test_template/${id}/`, {
                     headers: {
                         Authorization: `Token ${Token}`,
                     },
