@@ -487,8 +487,8 @@ const Header = () => {
                     </li>
                     {admin === 'true' && (
                         <li className="menu nav-item relative">
-                            <button type="button" className="nav-link">
-                                <div className="flex items-center">
+                            <button type="button" className="nav-link" onClick={() => router.push('/logs')}>
+                                <div className="flex items-center" onClick={() => router.push('/logs')}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" className="shrink-0">
                                         <path
                                             d="M3 4.5C3 3.67157 3.67157 3 4.5 3H19.5C20.3284 3 21 3.67157 21 4.5V19.5C21 20.3284 20.3284 21 19.5 21H4.5C3.67157 21 3 20.3284 3 19.5V4.5ZM4 5V19H20V5H4ZM6 7H18V9H6V7ZM6 11H18V13H6V11ZM6 15H18V17H6V15Z"
