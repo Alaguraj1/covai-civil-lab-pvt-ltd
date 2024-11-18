@@ -135,7 +135,7 @@ const Preview = () => {
                                         <div>{printData?.invoice?.place_of_testing}</div>
                                     </div>
                                     <div className="mb-1 flex w-full items-center justify-between">
-                                        <div className="text-white-dark"> GSTIN/UI:</div>
+                                        <div className="text-white-dark"> GSTIN:</div>
                                         <div>{printData?.customer?.gstin_no}</div>
                                     </div>
                                 </div>
