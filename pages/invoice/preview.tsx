@@ -78,13 +78,13 @@ const Preview = () => {
                 />
                 <div className="container" style={{ padding: '10px 0px' }}>
                     <div className="panel">
-                        <div className="flex grid-cols-3  justify-between gap-4">
+                        <div className="flex grid-cols-4  justify-between gap-3">
                             <div>
                                 <div className="invoice-head text-3xl font-semibold uppercase">Invoice</div>
                                 <p className="invoice-number">Invoice No : {printData?.invoice?.invoice_no}</p>
                             </div>
 
-                            <div className="grid-cols-9 pl-7 ltr:text-right rtl:text-left">
+                            <div className="grid-cols-8 pl-7 ltr:text-right rtl:text-left">
                                 <div className="shrink-0" style={{ display: 'flex', justifyContent: 'end' }}>
                                     <img src="/assets/images/logo-in.png" alt="img" style={{ width: '75%' }} className="w-17 ltr:ml-auto rtl:mr-auto" />
                                 </div>
@@ -92,7 +92,7 @@ const Preview = () => {
                                     <div className="invoice-right">
                                         <b>An ISO/IEC 17025:2017 CERTIFIED LAB</b>
                                         <br></br>
-                                        411/4, Ballu Naidu Thottam,Vijayalakshmi Nagar,<br></br>
+                                        411/4, Vijayalakshmi Nagar,<br></br>
                                         Neelikonampalayam Po, Coimbatore - 6410333.<br></br>
                                         <b>GSTIN : 33AALCC7761L1Z7</b><br/>
                                         <b>CIN : U71200TZ2024PTC031215 </b>
@@ -134,7 +134,7 @@ const Preview = () => {
                                         <div>{printData?.invoice?.place_of_testing}</div>
                                     </div>
                                     <div className="mb-1 flex w-full items-center justify-between">
-                                        <div className="text-white-dark"> GSTIN/UIN:</div>
+                                        <div className="text-white-dark"> GSTIN:</div>
                                         <div>{printData?.customer?.gstin_no}</div>
                                     </div>
                                 </div>
@@ -209,7 +209,7 @@ const Preview = () => {
 
                                     <tr style={{ border: 'none' }}>
                                         <td>
-                                        <b>Bank name & Branch:</b> Axis Bank, Vadavalli, Coimbatore.
+                                        <b>Bank Name & Branch:</b> Axis Bank, Vadavalli, Coimbatore.
                                         </td>
 
                                         <td style={{ textAlign: 'right' }}>{Discount()}</td>
@@ -242,7 +242,7 @@ const Preview = () => {
                         <hr className="my-2 border-white-light dark:border-[#1b2e4b]" />
                         <div className="preview-footer-main">
                             <div className="preview-qr-outer1">
-                                <img src="/assets/images/Sponsor.jpg" className="preview-qr-outer1_img" alt="image" />
+                                
                             </div>
 
                             {printData?.invoice?.invoice_no === null ? (
@@ -266,15 +266,15 @@ const Preview = () => {
                                         <b>Phone</b> : <a href="tel:9840014193"> 9840014193 </a>|<br />
                                         <i>
                                             <b>Email :</b>{' '}
-                                            <a href="mailto:cbe@covaiciviltechlab.com" target="_blank">
-                                                cbe@covaiciviltechlab.com{' '}
+                                            <a href="mailto:cbe@covaicivillab.com" target="_blank">
+                                                cbe@covaicivillab.com{' '}
                                             </a>
                                         </i>{' '}
                                         <br />
                                         <i>
                                             <b>Website :</b>{' '}
-                                            <a href="https://covaiciviltechlab.com/" target="blank">
-                                                covaiciviltechlab.com
+                                            <a href="https://covaicivillab.com/" target="blank">
+                                                covaicivillab.com
                                             </a>
                                         </i>
                                         <br></br>
