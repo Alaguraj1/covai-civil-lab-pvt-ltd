@@ -242,9 +242,9 @@ const Preview = () => {
                         {/*footer */}
                         <hr className="my-2 border-white-light dark:border-[#1b2e4b]" />
                         <div className="preview-footer-main">
-                            <div className="preview-qr-outer1">
-                                
-                            </div>
+                            {/* <div className="preview-qr-outer1">
+                                <img src="/assets/images/Sponsor.jpg" className="preview-qr-outer1_img" alt="image" />
+                            </div> */}
 
                             {printData?.invoice?.invoice_no === null ? (
                                 <></>
