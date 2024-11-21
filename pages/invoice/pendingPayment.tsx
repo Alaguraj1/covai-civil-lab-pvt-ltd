@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DatePicker, Form, InputNumber, Select, Space, Table } from 'antd';
-import { Button } from 'antd';
-import { Input } from 'antd';
+import { DatePicker, Form, InputNumber, Select, Space, Table, Spin, Button, Input } from 'antd';
 import axios from 'axios';
 import * as FileSaver from 'file-saver';
 import ExcelJS from 'exceljs';
@@ -15,6 +13,7 @@ const PendingPayment = () => {
 
     const [dataSource, setDataSource] = useState([]);
     const [formFields, setFormFields] = useState<any>([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         axios
@@ -146,7 +145,7 @@ const PendingPayment = () => {
 
     const initialData = () => {
         const Token = localStorage.getItem('token');
-
+        setLoading(true);
         const body = {
             project_name: '',
             from_date: '',
@@ -154,7 +153,6 @@ const PendingPayment = () => {
             customer: '',
             invoice_no: '',
         };
-
 
         axios
             .post(`${baseUrl}/pending_payment/`, body, {
@@ -164,14 +162,15 @@ const PendingPayment = () => {
             })
             .then((res: any) => {
                 setDataSource(res?.data?.pending_payments);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false);
             });
     };
-
 
     // form submit
     const onFinish2 = (values: any) => {
@@ -210,7 +209,7 @@ const PendingPayment = () => {
                 <div>
                     <Form name="basic" layout="vertical" form={form} initialValues={{ remember: true }} onFinish={onFinish2} onFinishFailed={onFinishFailed2} autoComplete="off">
                         <div className="sale_report_inputs">
-                        <Form.Item label="Invoice No" name="invoice_no" style={{ width: '200px' }}>
+                            <Form.Item label="Invoice No" name="invoice_no" style={{ width: '200px' }}>
                                 <InputNumber style={{ width: '100%' }} />
                             </Form.Item>
 
@@ -260,7 +259,16 @@ const PendingPayment = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={dataSource} columns={columns} scroll={scrollConfig} />
+                    <Table
+                        dataSource={dataSource}
+                        columns={columns}
+                        scroll={scrollConfig}
+                        loading={{
+                            spinning: loading, // This enables the loading spinner
+                            indicator: <Spin size="large" />,
+                            tip: 'Loading data...', // Custom text to show while loading
+                        }}
+                    />
                 </div>
             </div>
         </>

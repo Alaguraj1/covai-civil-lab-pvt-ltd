@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Space, Table, Modal, DatePicker } from 'antd';
-import { Button, Drawer } from 'antd';
-import { Form, Input, message, Upload, Select } from 'antd';
+import { Space, Table, Modal, DatePicker, Button, Drawer, Form, Input, message, Upload, Select, Spin } from 'antd';
 import { EditOutlined, EyeOutlined, InboxOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import type { UploadProps } from 'antd';
@@ -12,7 +10,7 @@ import { baseUrl } from '@/utils/function.util';
 const InvoiceFileUpload = () => {
     const { Search } = Input;
     const [form] = Form.useForm();
-    const fileInputRef:any = useRef(null);
+    const fileInputRef: any = useRef(null);
 
     const [open, setOpen] = useState(false);
     const [editRecord, setEditRecord] = useState<any>(null);
@@ -27,6 +25,7 @@ const InvoiceFileUpload = () => {
     const [fileInputData, setFileInputData] = useState<any>({
         file: null,
     });
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const Token = localStorage.getItem('token');
@@ -392,6 +391,7 @@ const InvoiceFileUpload = () => {
     const initialData = () => {
         const Token = localStorage.getItem('token');
         console.log('✌️Token --->', Token);
+        setLoading(true)
 
         const body = {
             invoice_no: '',
@@ -411,11 +411,13 @@ const InvoiceFileUpload = () => {
             .then((res: any) => {
                 console.log('✌️res --->', res);
                 setDataSource(res?.data.invoice_files);
+                setLoading(false)
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false)
             });
     };
 
@@ -522,7 +524,12 @@ const InvoiceFileUpload = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={dataSource} columns={columns} pagination={false} scroll={scrollConfig} />
+                    <Table dataSource={dataSource} columns={columns} pagination={false} scroll={scrollConfig} 
+                      loading={{
+                        spinning: loading, // This enables the loading spinner
+                        indicator: <Spin size="large"/>,
+                        tip: 'Loading data...', // Custom text to show while loading
+                    }}/>
                 </div>
 
                 <Drawer title={drawerTitle} placement="right" width={600} onClose={onClose} open={open}>

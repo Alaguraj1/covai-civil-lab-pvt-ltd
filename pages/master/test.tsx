@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Space, Table, Modal } from 'antd';
 import { Button, Drawer } from 'antd';
-import { Form, Input, InputNumber, Select } from 'antd';
+import { Form, Input, InputNumber, Select, Spin } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import router from 'next/router';
@@ -19,6 +19,7 @@ const Test = () => {
     const [dataSource, setDataSource] = useState([]);
     const [formFields, setFormFields] = useState<any>([]);
     const [filterData, setFilterData] = useState(dataSource);
+    const [loading, setLoading] = useState(false);
 
     // get test
     useEffect(() => {
@@ -54,6 +55,7 @@ const Test = () => {
 
     const getTest = () => {
         const Token = localStorage.getItem('token');
+        setLoading(true);
 
         axios
             .get(`${baseUrl}/test_list/`, {
@@ -64,11 +66,13 @@ const Test = () => {
             .then((res: any) => {
                 setDataSource(res.data);
                 setFilterData(res.data);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false);
             });
     };
 
@@ -331,7 +335,16 @@ const Test = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={filterData} columns={columns} scroll={scrollConfig} />
+                    <Table
+                        dataSource={filterData}
+                        columns={columns}
+                        scroll={scrollConfig}
+                        loading={{
+                            spinning: loading, // This enables the loading spinner
+                            indicator: <Spin size="large" />,
+                            tip: 'Loading data...', // Custom text to show while loading
+                        }}
+                    />
                 </div>
 
                 <Drawer title={drawertitle} placement="right" width={600} onClose={onClose} open={open}>

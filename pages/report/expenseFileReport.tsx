@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Form, Select, DatePicker } from 'antd';
+import { Table, Button, Space, Form, Select, DatePicker, Spin } from 'antd';
 import { Input } from 'antd';
 import axios from 'axios';
 import ExcelJS from 'exceljs';
@@ -11,6 +11,7 @@ import { baseUrl } from '@/utils/function.util';
 const ExpenseFileReport = () => {
     const [form] = Form.useForm();
     const [dataSource, setDataSource] = useState([]);
+    const [loading, setLoading] = useState(false);
 
 
     // Table Headers
@@ -85,7 +86,7 @@ const ExpenseFileReport = () => {
 
     useEffect(() => {
         const Token = localStorage.getItem('token');
-
+        setLoading(true)
         const body = {
             // expense_user: '',
             from_date: '',
@@ -102,11 +103,13 @@ const ExpenseFileReport = () => {
             .then((res: any) => {
                 console.log('✌️res --->', res);
                 setDataSource(res?.data?.reports);
+                setLoading(false)
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false)
             });
     }, []);
 
@@ -237,7 +240,12 @@ const ExpenseFileReport = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={dataSource} columns={columns} pagination={false} scroll={scrollConfig} />
+                    <Table dataSource={dataSource} columns={columns} pagination={false} scroll={scrollConfig} 
+                      loading={{
+                        spinning: loading, // This enables the loading spinner
+                        indicator: <Spin size="large"/>,
+                        tip: 'Loading data...', // Custom text to show while loading
+                    }}/>
                 </div>
             </div>
         </>

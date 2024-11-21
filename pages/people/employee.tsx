@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Modal, message, InputNumber } from 'antd';
+import { Space, Table, Modal, message, InputNumber, Spin } from 'antd';
 import { Button, Drawer } from 'antd';
 import { Form, Input, Radio, DatePicker } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
@@ -20,7 +20,7 @@ const Employee = () => {
     const [dataSource, setDataSource] = useState([]);
     const [messageApi, contextHolder] = message.useMessage();
     const [admin, setAdmin] = useState();
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         const Admin: any = localStorage.getItem('admin');
         setAdmin(Admin);
@@ -40,7 +40,7 @@ const Employee = () => {
 
     const getEmployee = () => {
         const Token = localStorage.getItem('token');
-
+        setLoading(true)
         axios
             .get(`${baseUrl}/employee_list/`, {
                 headers: {
@@ -50,11 +50,14 @@ const Employee = () => {
             .then((res) => {
                 setDataSource(res.data);
                 setFilterData(res.data);
+                setLoading(false)
+
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false)   
             });
     };
 
@@ -373,7 +376,12 @@ const Employee = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={filterData} columns={columns} scroll={scrollConfig} />
+                    <Table dataSource={filterData} columns={columns} scroll={scrollConfig} 
+                      loading={{
+                        spinning: loading, // This enables the loading spinner
+                        indicator: <Spin size="large"/>,
+                        tip: 'Loading data...', // Custom text to show while loading
+                    }}/>
                 </div>
 
                 <Drawer title={drawerTitle} placement="right" width={600} onClose={onClose} open={open}>
@@ -401,11 +409,11 @@ const Employee = () => {
                         </Form.Item>
 
                         <Form.Item<FieldType> label="Mobile Number" name="mobile_number" required={true} rules={[{ required: true, message: 'Please input your Mobile Number!' }]}>
-                            <InputNumber style={{ width: '100%' }} maxLength={10} minLength={10}/>
+                            <InputNumber style={{ width: '100%' }} maxLength={10} minLength={10} />
                         </Form.Item>
 
                         <Form.Item<FieldType> label="Branch Email" name="branch_email" required={true} rules={[{ required: true, message: 'Please input your Branch Email!' }]}>
-                            <Input type='email'/>
+                            <Input type="email" />
                         </Form.Item>
 
                         <Form.Item label="DOB" name="dob" required={true} rules={[{ required: true, message: 'Please Select your DOB!' }]}>

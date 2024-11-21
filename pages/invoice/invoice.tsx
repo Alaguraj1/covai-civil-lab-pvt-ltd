@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { DatePicker, Space, Table } from 'antd';
-import { Button, Drawer } from 'antd';
-import { Form, Input, Select } from 'antd';
+import { DatePicker, Space, Table, Spin, Button, Drawer, Form, Input, Select } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import router from 'next/router';
@@ -17,6 +15,7 @@ const Invoice = () => {
     const [formFields, setFormFields] = useState<any>([]);
     const [selectedCustomerId, setSelectedCustomerId] = useState(null);
     const [customerAddress, setCustomerAddress] = useState('');
+    const [loading, setLoading] = useState(false);
 
     // useEffect(() => {
     //     getInvoice();
@@ -85,13 +84,11 @@ const Invoice = () => {
             className: 'singleLineCell',
             width: 100,
             render: (text: any, record: any) => {
-                if(text){
-                    return dayjs(text).format('DD-MM-YYYY');  
+                if (text) {
+                    return dayjs(text).format('DD-MM-YYYY');
+                } else {
+                    return '';
                 }
-                else{
-                    return "";
-                }
-                
             },
         },
         {
@@ -276,7 +273,7 @@ const Invoice = () => {
     const initialData = () => {
         const Token = localStorage.getItem('token');
         console.log('✌️Token --->', Token);
-
+        setLoading(true);
         const body = {
             project_name: '',
             from_date: '',
@@ -296,11 +293,13 @@ const Invoice = () => {
             .then((res: any) => {
                 console.log('✌️res --->', res);
                 setDataSource(res?.data);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false);
             });
     };
 
@@ -396,7 +395,17 @@ const Invoice = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={dataSource} columns={columns} pagination={false} scroll={scrollConfig} />
+                    <Table
+                        dataSource={dataSource}
+                        columns={columns}
+                        pagination={false}
+                        scroll={scrollConfig}
+                        loading={{
+                            spinning: loading, // This enables the loading spinner
+                            indicator: <Spin size="large" />,
+                            tip: 'Loading data...', // Custom text to show while loading
+                        }}
+                    />
                 </div>
 
                 <Drawer title="Create Invoice" placement="right" width={600} onClose={onClose} open={open}>

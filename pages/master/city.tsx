@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Modal } from 'antd';
+import { Space, Table, Modal, Spin } from 'antd';
 import { Button, Drawer } from 'antd';
 import { Form, Input } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
@@ -11,7 +11,6 @@ const City = () => {
     const { Search } = Input;
     const [form] = Form.useForm();
 
-    
     const [open, setOpen] = useState(false);
     const [editRecord, setEditRecord] = useState<any>(null);
     const [drawerTitle, setDrawerTitle] = useState('Create City');
@@ -19,6 +18,7 @@ const City = () => {
     const [dataSource, setDataSource] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [filterData, setFilterData] = useState(dataSource);
+    const [loading, setLoading] = useState(false);
 
     // get Tax datas
     useEffect(() => {
@@ -35,6 +35,7 @@ const City = () => {
 
     const GetTaxData = () => {
         const Token = localStorage.getItem('token');
+        setLoading(true);
 
         axios
             .get(`${baseUrl}/city_list/`, {
@@ -45,11 +46,13 @@ const City = () => {
             .then((res) => {
                 setDataSource(res?.data);
                 setFilterData(res.data);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
-                } 
+                }
+                setLoading(false);
             });
     };
 
@@ -202,7 +205,7 @@ const City = () => {
                 .catch((error: any) => {
                     if (error.response.status === 401) {
                         router.push('/');
-                    } 
+                    }
                 });
 
             form.resetFields();
@@ -210,8 +213,7 @@ const City = () => {
         onClose();
     };
 
-    const onFinishFailed = (errorInfo: any) => {
-    };
+    const onFinishFailed = (errorInfo: any) => {};
 
     type FieldType = {
         name?: string;
@@ -282,7 +284,17 @@ const City = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={filterData} columns={columns} pagination={false} scroll={scrollConfig} />
+                    <Table
+                        dataSource={filterData}
+                        columns={columns}
+                        pagination={false}
+                        scroll={scrollConfig}
+                        loading={{
+                            spinning: loading, // This enables the loading spinner
+                            indicator: <Spin size="large" />,
+                            tip: 'Loading data...', // Custom text to show while loading
+                        }}
+                    />
                 </div>
 
                 <Drawer title={drawerTitle} placement="right" width={600} onClose={onClose} open={open}>

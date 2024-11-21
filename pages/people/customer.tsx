@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Space, Table, Modal, InputNumber } from 'antd';
 import { Button, Drawer } from 'antd';
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, Spin } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import router from 'next/router';
@@ -19,6 +19,7 @@ const Customer = () => {
     const [dataSource, setDataSource] = useState([]);
     const [formFields, setFormFields] = useState<any>([]);
     const [filterData, setFilterData] = useState(dataSource);
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         getCustomer();
@@ -34,6 +35,7 @@ const Customer = () => {
     }, [editRecord, open]);
 
     const getCustomer = () => {
+        setLoading(true)
         axios
             .get(`${baseUrl}/customer_list/`, {
                 headers: {
@@ -43,11 +45,13 @@ const Customer = () => {
             .then((res) => {
                 setDataSource(res.data);
                 setFilterData(res.data);
+                setLoading(false)
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false)
             });
     };
 
@@ -428,7 +432,12 @@ const Customer = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={filterData} columns={columns} scroll={scrollConfig} />
+                    <Table dataSource={filterData} columns={columns} scroll={scrollConfig} 
+                      loading={{
+                        spinning: loading, // This enables the loading spinner
+                        indicator: <Spin size="large"/>,
+                        tip: 'Loading data...', // Custom text to show while loading
+                    }}/>
                 </div>
 
                 <Drawer title={drawerTitle} placement="right" width={600} onClose={onClose} open={open}>

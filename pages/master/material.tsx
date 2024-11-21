@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Space, Table, Modal, Select } from 'antd';
+import { Space, Table, Modal, Select, Spin } from 'antd';
 import { Button, Drawer } from 'antd';
 import { Form, Input } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
@@ -24,6 +24,7 @@ const Material = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editor, setEditor] = useState<any>('');
     const [formFields, setFormFields] = useState<any>([]);
+    const [loading, setLoading] = useState(false);
 
     // Get Material Data
     useEffect(() => {
@@ -49,6 +50,7 @@ const Material = () => {
 
     const getMaterial = () => {
         const Token = localStorage.getItem('token');
+        setLoading(true);
 
         axios
             .get(`${baseUrl}/material_list/`, {
@@ -59,11 +61,13 @@ const Material = () => {
             .then((res) => {
                 setDataSource(res?.data);
                 setFilterData(res.data);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 } 
+                setLoading(false);
             });
     };
 
@@ -339,7 +343,12 @@ const Material = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={filterData} columns={columns} scroll={scrollConfig} />
+                    <Table dataSource={filterData} columns={columns} scroll={scrollConfig} 
+                    loading={{
+                        spinning: loading, // This enables the loading spinner
+                        indicator: <Spin size="large"/>,
+                        tip: 'Loading data...', // Custom text to show while loading
+                    }}/>
                 </div>
 
                 <Drawer title={DrawerTitle} placement="right" width={600} onClose={onClose} open={open}>

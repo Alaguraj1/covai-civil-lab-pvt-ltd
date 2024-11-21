@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Modal } from 'antd';
+import { Space, Table, Modal, Spin } from 'antd';
 import { Button, Drawer, InputNumber } from 'antd';
 import { Form, Input, Radio } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
@@ -17,6 +17,7 @@ const Tax = () => {
     const [dataSource, setDataSource] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [filterData, setFilterData] = useState(dataSource);
+    const [loading, setLoading] = useState(false);
 
     // Model
     const showModal = (record: any) => {
@@ -40,6 +41,7 @@ const Tax = () => {
 
     const GetTaxData = () => {
         const Token = localStorage.getItem('token');
+        setLoading(true);
 
         axios
             .get(`${baseUrl}/tax_list/`, {
@@ -50,11 +52,13 @@ const Tax = () => {
             .then((res) => {
                 setDataSource(res?.data);
                 setFilterData(res.data);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error?.response?.status === 401) {
                     router.push('/');
-                } 
+                }
+                setLoading(false);
             });
     };
 
@@ -122,8 +126,7 @@ const Tax = () => {
             onClick={() => showDrawer(record)}
             className='edit-icon' rev={undefined} /> */}
 
-
-          {/* {
+                    {/* {
             localStorage.getItem('admin') === 'true' ? (
               <DeleteOutlined
                 style={{ color: "red", cursor: "pointer" }}
@@ -286,6 +289,8 @@ const Tax = () => {
         y: 300,
     };
 
+    console.log('loading', loading);
+
     return (
         <>
             <div className="panel">
@@ -301,7 +306,17 @@ const Tax = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={filterData} columns={columns} pagination={false} scroll={scrollConfig} />
+                    <Table
+                        dataSource={filterData}
+                        columns={columns}
+                        pagination={false}
+                        scroll={scrollConfig}
+                        loading={{
+                            spinning: loading, // This enables the loading spinner
+                            indicator: <Spin size="large"/>,
+                            tip: 'Loading data...', // Custom text to show while loading
+                        }}
+                    />
                 </div>
 
                 <Drawer title={drawerTitle} placement="right" width={600} onClose={onClose} open={open}>

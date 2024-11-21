@@ -25,7 +25,7 @@ const Print = () => {
         }
     };
 
-    console.log(invoiceReport.invoice_test.id, 'report');
+    // console.log(invoiceReport.invoice_test, 'report');
 
     useEffect(() => {
         getTestReport();

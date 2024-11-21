@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Modal, InputNumber, Button, Drawer,Form, Input, Select, DatePicker } from 'antd';
+import { Space, Table, Modal, InputNumber, Button, Drawer, Form, Input, Select, DatePicker, Spin } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import dayjs from 'dayjs';
@@ -16,6 +16,7 @@ const ExpenseEntry = () => {
     const [dataSource, setDataSource] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formFields, setFormFields] = useState<any>([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         axios
@@ -42,8 +43,6 @@ const ExpenseEntry = () => {
             setDrawerTitle('Create Expense');
         }
     }, [editRecord, open]);
-
-
 
     // Model
     const showModal = (record: any) => {
@@ -308,14 +307,13 @@ const ExpenseEntry = () => {
 
     const initialData = () => {
         const Token = localStorage.getItem('token');
-
+        setLoading(true);
         const body = {
             from_date: '',
             to_date: '',
             expense_user: '',
             expense_category: '',
         };
-
 
         axios
             .post(`${baseUrl}/expense_entry_list/`, body, {
@@ -325,14 +323,15 @@ const ExpenseEntry = () => {
             })
             .then((res: any) => {
                 setDataSource(res?.data);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false);
             });
     };
-
 
     // form submit
     const onFinish2 = (values: any) => {
@@ -344,7 +343,6 @@ const ExpenseEntry = () => {
             expense_user: values.expense_user ? values.expense_user : '',
             expense_category: values.expense_category ? values.expense_category : '',
         };
-
 
         axios
             .post(`${baseUrl}/expense_entry_list/`, body, {
@@ -372,7 +370,7 @@ const ExpenseEntry = () => {
                     <Form name="basic" layout="vertical" form={form} initialValues={{ remember: true }} onFinish={onFinish2} onFinishFailed={onFinishFailed2} autoComplete="off">
                         <div className="sale_report_inputs">
                             <Form.Item label="Expense User" name="expense_user" style={{ width: '250px' }}>
-                                <Input/>
+                                <Input />
                             </Form.Item>
 
                             <Form.Item label="Expense Category" name="expense_category" style={{ width: '300px' }}>
@@ -415,7 +413,17 @@ const ExpenseEntry = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={dataSource} columns={columns} pagination={false} scroll={scrollConfig} />
+                    <Table
+                        dataSource={dataSource}
+                        columns={columns}
+                        pagination={false}
+                        scroll={scrollConfig}
+                        loading={{
+                            spinning: loading, // This enables the loading spinner
+                            indicator: <Spin size="large" />,
+                            tip: 'Loading data...', // Custom text to show while loading
+                        }}
+                    />
                 </div>
 
                 <Drawer title={drawerTitle} placement="right" width={600} onClose={onClose} open={open}>

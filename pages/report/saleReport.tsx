@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Form, Input, Button, DatePicker, Select, Tooltip } from 'antd';
+import { Table, Form, Input, Button, DatePicker, Select, Tooltip, Spin } from 'antd';
 import axios from 'axios';
 import ExcelJS from 'exceljs';
 import * as FileSaver from 'file-saver';
@@ -11,7 +11,7 @@ const SaleReport = () => {
     const [form] = Form.useForm();
     const [dataSource, setDataSource] = useState([]);
     const [saleFormData, setSaleFormData] = useState([]);
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         axios
             .get(`${baseUrl}/sale_report/`, {
@@ -220,7 +220,6 @@ const SaleReport = () => {
             className: 'singleLineCell',
             width: 100,
         },
-       
 
         {
             title: (
@@ -238,6 +237,7 @@ const SaleReport = () => {
 
     useEffect(() => {
         const Token = localStorage.getItem('token');
+        setLoading(true);
 
         const body = {
             project_name: '',
@@ -254,11 +254,13 @@ const SaleReport = () => {
             })
             .then((res: any) => {
                 setDataSource(res?.data?.reports);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false);
             });
     }, []);
 
@@ -379,7 +381,16 @@ const SaleReport = () => {
                 </div>
 
                 <div className="table-responsive">
-                    <Table dataSource={dataSource} columns={columns} scroll={scrollConfig} />
+                    <Table
+                        dataSource={dataSource}
+                        columns={columns}
+                        scroll={scrollConfig}
+                        loading={{
+                            spinning: loading, // This enables the loading spinner
+                            indicator: <Spin size="large" />,
+                            tip: 'Loading data...', // Custom text to show while loading
+                        }}
+                    />
                 </div>
             </div>
         </>

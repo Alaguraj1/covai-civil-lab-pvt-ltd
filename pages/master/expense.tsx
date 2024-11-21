@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Modal } from 'antd';
+import { Space, Table, Modal, Spin } from 'antd';
 import { Button, Drawer } from 'antd';
 import { Form, Input } from 'antd';
 import { EditOutlined, EyeOutlined } from '@ant-design/icons';
@@ -19,6 +19,7 @@ const Expense = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [dataSource, setDataSource] = useState([]);
     const [filterData, setFilterData] = useState(dataSource);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getExpense();
@@ -26,6 +27,7 @@ const Expense = () => {
 
     const getExpense = () => {
         const Token = localStorage.getItem('token');
+        setLoading(true)
 
         axios
             .get(`${baseUrl}/expense_list/`, {
@@ -36,11 +38,13 @@ const Expense = () => {
             .then((res) => {
                 setDataSource(res.data);
                 setFilterData(res.data);
+                setLoading(false);
             })
             .catch((error: any) => {
                 if (error.response.status === 401) {
                     router.push('/');
                 }
+                setLoading(false)
             });
     };
 
@@ -276,7 +280,12 @@ const Expense = () => {
                     </div>
                 </div>
                 <div className="table-responsive">
-                    <Table dataSource={filterData} columns={columns} pagination={false} scroll={scrollConfig} />
+                    <Table dataSource={filterData} columns={columns} pagination={false} scroll={scrollConfig} 
+                        loading={{
+                            spinning: loading, // This enables the loading spinner
+                            indicator: <Spin size="large" />,
+                            tip: 'Loading data...', // Custom text to show while loading
+                        }} />
                 </div>
 
                 <Drawer title={drawerTitle} placement="right" width={600} onClose={onClose} open={open}>
